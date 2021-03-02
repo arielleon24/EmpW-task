@@ -1,6 +1,4 @@
 # EmpWorks-task
-This project is a task for Empathy Works to test my ability to learn Django
-
 - Run server with the command: **python manage.py runserver**
 - Once server is running you can visit it with: http://127.0.0.1:8000/  
     8000 is the default but this can be changed when running it by adding the desired port as a command line arg. EX: **python manage.py runserver 8080**
