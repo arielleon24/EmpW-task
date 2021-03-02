@@ -2,12 +2,14 @@ from django.shortcuts import get_object_or_404,  render
 from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
+# from forms import PollForm
 
 from .models import Question
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from django.views.generic.edit import DeleteView, CreateView
 
 from .models import Choice, Question
 
@@ -27,6 +29,21 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+class PollDelete(DeleteView):
+    template_name = 'polls/delete.html'
+    # can specify success url
+    # url to redirect after sucessfully
+    # deleting object
+    def get_object(self):
+        question = get_object_or_404(Question, pk=self.kwargs['pk'])
+        return question
+
+# def createPoll(request):
+#     form = PollForm
+#     context = {'form': form}
+#     return render(request, 'polls/new_poll.html', context)
+
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

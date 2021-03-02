@@ -1,8 +1,23 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>    {% endfor %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            <div>
+                    <form action="{% url 'polls:delete' pk=question.id %}" method="GET">
+                        {% csrf_token %}
+                        <input class="btn btn-default btn-danger" type="submit" value="Delete"/>
+                    </form>
+            </div>
+        </li>
+    {% endfor %}
     </ul>
+    <div class="card card-body">
+        <button><a class="btn btn-primary btn-sm btn-block" >Create Poll</a></button>
+{#        <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_poll' %}">Create Poll</a>#}
+    </div>
 {% else %}
     <p>No polls are available.</p>
+    <div class="card card-body">
+        <button><a class="btn btn-primary btn-sm btn-block" >Create Poll</a></button>
+    </div>
 {% endif %}
