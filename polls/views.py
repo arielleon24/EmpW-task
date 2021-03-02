@@ -32,6 +32,7 @@ class ResultsView(generic.DetailView):
 
 class PollDelete(DeleteView):
     template_name = 'polls/delete.html'
+    success_url = "/polls"
     # can specify success url
     # url to redirect after sucessfully
     # deleting object
