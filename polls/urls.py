@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 
 app_name = 'polls'
@@ -15,5 +14,5 @@ urlpatterns = [
     #path for delete
     #Tried changing the format to /polls/delete/PK but it didn't work
     path('<int:pk>/delete/', views.PollDelete.as_view(), name='delete'),
-    path('new_poll/', views.NewPoll, name='new_poll')
+    path('poll_create/', views.PollCreate.as_view(), name='poll_create')
 ]

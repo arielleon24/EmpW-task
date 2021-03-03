@@ -2,13 +2,13 @@ from django.shortcuts import get_object_or_404,  render
 from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
-# from forms import PollForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import DeleteView, CreateView
 from django.db.models import Sum
+from .forms import PollForm
 
 from .models import Choice, Question
 
@@ -39,15 +39,18 @@ class PollDelete(DeleteView):
         question = get_object_or_404(queryset, pk=self.kwargs['pk'])  # get_object_or_404 can take a queryset
         return question
 
-# class NewPoll(CreateView):
-#     template_name = 'polls/new_poll.html'
-#     model = Question
-#     fields = ['question_text', 'pub_date' ]
+#TODO find a way to pass the current time for the Pub date field
+#TODO create fields for up to 4 choices associated with the new question
+class PollCreate(CreateView):
+    model= Question
+    template_name = 'polls/poll_create.html'
+    fields = ['question_text']
 
-def NewPoll(request):
-    # form = PollForm
-    context = {'form': "form"}
-    return render(request, 'polls/new_poll.html', context)
+
+# def NewPoll(request):
+#     form = PollForm
+#     context = {'form': "form"}
+#     return render(request, 'polls/new_poll.html', context)
 
 
 def vote(request, question_id):

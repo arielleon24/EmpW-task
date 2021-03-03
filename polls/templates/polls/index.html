@@ -14,9 +14,9 @@
         </li>
     {% endfor %}
     </ul>
-    <div>
-        <button><a class="btn btn-primary btn-sm btn-block" href="{% url 'new_poll' %}" >Create Poll</a></button>
-    </div>
+    <form action="{% url 'polls:poll_create' %}" method="GET"> {% csrf_token %}
+        <input class="btn btn-default btn-danger" type="submit" value="create new poll"/>
+    </form>
 {% else %}
     <p>No polls are available.</p>
     <div class="card card-body">

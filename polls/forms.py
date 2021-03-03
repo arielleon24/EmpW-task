@@ -1,7 +1,10 @@
-from django.form import ModelForm
+from django import forms
 from .models import Question, Choice
 
-class PollForm(ModelForm):
+class PollForm(forms.ModelForm):
     class meta:
         model = Question
-        fields = '__all__'
+        fields = [
+            'question_text',
+            'choices'
+        ]
