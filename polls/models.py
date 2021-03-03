@@ -5,7 +5,8 @@ from django.utils import timezone
 # Create your models here.
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    #TODO if main polls page crashes, remove the .auto_now_add
+    pub_date = models.DateTimeField('date published').auto_now_add
     def __str__(self):
         return self.question_text
     def was_published_recently(self):

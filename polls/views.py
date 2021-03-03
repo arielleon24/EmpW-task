@@ -45,6 +45,7 @@ class PollCreate(CreateView):
     model= Question
     template_name = 'polls/poll_create.html'
     fields = ['question_text']
+    success_url = "/polls"
 
 
 # def NewPoll(request):
