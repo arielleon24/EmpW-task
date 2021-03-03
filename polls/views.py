@@ -39,14 +39,15 @@ class PollDelete(DeleteView):
         question = get_object_or_404(queryset, pk=self.kwargs['pk'])  # get_object_or_404 can take a queryset
         return question
 
-class NewPoll(CreateView):
+# class NewPoll(CreateView):
+#     template_name = 'polls/new_poll.html'
+#     model = Question
+#     fields = ['question_text', 'pub_date' ]
 
-    template_name = 'polls/new_poll.html'
-
-# def createPoll(request):
-#     form = PollForm
-#     context = {'form': form}
-#     return render(request, 'polls/new_poll.html', context)
+def NewPoll(request):
+    # form = PollForm
+    context = {'form': "form"}
+    return render(request, 'polls/new_poll.html', context)
 
 
 def vote(request, question_id):

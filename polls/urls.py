@@ -15,5 +15,5 @@ urlpatterns = [
     #path for delete
     #Tried changing the format to /polls/delete/PK but it didn't work
     path('<int:pk>/delete/', views.PollDelete.as_view(), name='delete'),
-    # path('createpoll/', views.createPoll, name='createPoll')
+    path('new_poll/', views.NewPoll, name='new_poll')
 ]

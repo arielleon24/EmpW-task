@@ -1,3 +1,6 @@
+{% load static %}
+{% block content %}
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -11,13 +14,14 @@
         </li>
     {% endfor %}
     </ul>
-    <div class="card card-body">
-        <button><a class="btn btn-primary btn-sm btn-block" >Create Poll</a></button>
-{#        <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_poll' %}">Create Poll</a>#}
+    <div>
+        <button><a class="btn btn-primary btn-sm btn-block" href="{% url 'new_poll' %}" >Create Poll</a></button>
     </div>
 {% else %}
     <p>No polls are available.</p>
     <div class="card card-body">
-        <button><a class="btn btn-primary btn-sm btn-block" >Create Poll</a></button>
+        <button><a class="btn btn-primary btn-sm btn-block" href="{% url 'polls:new_poll' %}" >Create Poll</a></button>
     </div>
 {% endif %}
+
+{% endblock %}
