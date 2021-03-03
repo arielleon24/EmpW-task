@@ -1,4 +1,6 @@
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ question }}"?</p>
+    <p>Are you sure you want to delete the poll "{{ question }}"?
+    <div>It currently has a total of {{question.total_votes}} votes</div>
+    </p>
     <input type="submit" value="Confirm">
 </form>

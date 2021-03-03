@@ -3,13 +3,12 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
 # from forms import PollForm
-
-from .models import Question
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import DeleteView, CreateView
+from django.db.models import Sum
 
 from .models import Choice, Question
 
@@ -30,15 +29,19 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
+
 class PollDelete(DeleteView):
     template_name = 'polls/delete.html'
     success_url = "/polls"
-    # can specify success url
-    # url to redirect after sucessfully
-    # deleting object
+
     def get_object(self):
-        question = get_object_or_404(Question, pk=self.kwargs['pk'])
+        queryset = Question.objects.all().annotate(total_votes=Sum('choice__votes'))
+        question = get_object_or_404(queryset, pk=self.kwargs['pk'])  # get_object_or_404 can take a queryset
         return question
+
+class NewPoll(CreateView):
+
+    template_name = 'polls/new_poll.html'
 
 # def createPoll(request):
 #     form = PollForm
