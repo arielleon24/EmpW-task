@@ -44,7 +44,7 @@ class PollDelete(DeleteView):
 class PollCreate(CreateView):
     model= Question
     template_name = 'polls/poll_create.html'
-    fields = ['question_text']
+    fields = ['question_text', 'question_text', 'question_text']
     success_url = "/polls"
 
 
