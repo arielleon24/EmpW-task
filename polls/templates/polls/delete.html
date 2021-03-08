@@ -1,6 +1,9 @@
+<h3> Deleted questions cannot be restored </h3>
+
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete the poll "{{ question }}"?
     <div>It currently has a total of {{question.total_votes}} votes</div>
     </p>
     <input type="submit" value="Confirm">
 </form>
+<a href="{% url 'polls:index'%}">Return to the polls page</a>

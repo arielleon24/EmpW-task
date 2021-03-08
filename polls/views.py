@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import DeleteView, CreateView
@@ -39,19 +39,33 @@ class PollDelete(DeleteView):
         question = get_object_or_404(queryset, pk=self.kwargs['pk'])  # get_object_or_404 can take a queryset
         return question
 
-#TODO find a way to pass the current time for the Pub date field
-#TODO create fields for up to 4 choices associated with the new question
-class PollCreate(CreateView):
-    model= Question
-    template_name = 'polls/poll_create.html'
-    fields = ['question_text', 'question_text', 'question_text']
-    success_url = "/polls"
+# #TODO find a way to pass the current time for the Pub date field
+# #TODO create fields for up to 4 choices associated with the new question
+# class PollCreate(CreateView):
+#     model= Question
+#     template_name = 'polls/poll_create.html'
+#     fields = '__all__'
+#     success_url = "/polls"
 
+# change routing
+def create_poll(request):
+    if request.method == 'POST':
+        question = request.POST.get('question')
 
-# def NewPoll(request):
-#     form = PollForm
-#     context = {'form': "form"}
-#     return render(request, 'polls/new_poll.html', context)
+        question_obj = Question.objects.create(question_text=question)
+        choices_first = request.POST.get('choices_first')
+        choices_second = request.POST.get('choices_second')
+        choices_third = request.POST.get('choices_third')
+        choices_fourth = request.POST.get('choices_fourth')
+
+        choices_first_obj = Choice.objects.create(question=question_obj, choice_text=choices_first)
+        choices_second_obj = Choice.objects.create(question=question_obj, choice_text=choices_second)
+        choices_third_obj = Choice.objects.create(question=question_obj, choice_text=choices_third)
+        choices_fourth_obj = Choice.objects.create(question=question_obj, choice_text=choices_fourth)
+
+        return redirect('/polls/')
+
+    return render(request, 'polls/poll_create.html')
 
 
 def vote(request, question_id):
