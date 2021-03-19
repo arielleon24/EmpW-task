@@ -16,7 +16,7 @@
     {% endfor %}
     </ul>
     <form action="{% url 'polls:poll_create' %}" method="GET"> {% csrf_token %}
-        <input class="btn btn-default btn-danger" type="submit" value="create new poll"/>
+        <input class="btn btn-default btn-danger" type="submit" value="Create new poll"/>
     </form>
 {% else %}
     <p>No polls are available.</p>
